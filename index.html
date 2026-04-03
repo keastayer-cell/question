@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+1<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -79,7 +79,7 @@
             background: url('no.svg') no-repeat center/contain;
             background-color: transparent;
             border: none;
-            z-index: 10;
+            z-index: 100;
         }
 
         .btn-yes:active, .btn-no:active {
@@ -209,24 +209,23 @@
         const loveScreen = document.getElementById('loveScreen');
         const heartsBg = document.getElementById('heartsBg');
 
-        // При наведении на Да, перемещаем Нет
+        // При наведении на Да, Нет перекрывает её
         yesBtn.addEventListener('mouseenter', () => {
-            const container = document.querySelector('.buttons-container');
-            
-            // Случайная позиция в пределах контейнера
-            const maxX = 400 - 120;
-            const maxY = 100 - 50;
-            
-            const newX = Math.random() * maxX;
-            const newY = Math.random() * maxY;
-            
-            noBtn.style.left = newX + 'px';
-            noBtn.style.top = newY + 'px';
+            // Ставим Нет прямо поверх Да
+            noBtn.style.left = '30px';
+            noBtn.style.top = '20px';
+            noBtn.style.zIndex = '100';
         });
 
-        // Нажатие на Да
+        // При уходе с Да, Нет возвращается на место
+        yesBtn.addEventListener('mouseleave', () => {
+            noBtn.style.left = '20px';
+            noBtn.style.top = '30px';
+        });
+
+        // Нажатие на Да - тоже показывает грусть
         yesBtn.addEventListener('click', () => {
-            showLove();
+            showSad();
         });
 
         // Нажатие на Нет
